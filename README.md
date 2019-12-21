@@ -6,6 +6,6 @@
 
 :file_folder: [《啊哈!算法》](https://github.com/swordboyASS/Academic/tree/master/%E3%80%8A%E5%95%8A%E5%93%88!%E7%AE%97%E6%B3%95%E3%80%8B)
 
-:file_folder:[《算法入门基础》]()
+:file_folder:[《算法入门基础》](https://github.com/swordboyASS/Academic/tree/master/%E3%80%8A%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80%E3%80%8B)
 
-最后更新于: 2019/11/17
+最后更新于: 2019/11/21
