@@ -1,6 +1,9 @@
 #### :star: 1.Floyd-Warshall
 
 ```c++
+/*
+弗洛伊德和沃舍尔是2个人，他们独立发明了这个算法
+*/
 #include <iostream>
 #include <stdio.h> 
 using namespace std;
@@ -47,4 +50,13 @@ int main()
 	*/
 	return 0;
 }
+/*
+弗洛伊德算法，可以处理带负权边的图，但是不能处理带负权回路的图，因为会造成，每一次的路径都越加越小
+*/
+
+```
+
+#### :star: 2.Dijkstra-单源最短路径--某一个点到其余点的最短路径(邻接矩阵存储)
+```c++
+
 ```
