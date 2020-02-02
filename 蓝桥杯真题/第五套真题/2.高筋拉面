@@ -1,0 +1,20 @@
+```c++
+增量是以1为a1（首项），q（公比）为2的等比数列
+#include <stdio.h>
+
+int main()
+{
+	int i,t,sum;
+	t=1,sum=2;
+	for(i=0;i<10;i++)
+	{
+		sum+=t;
+		t=t*2;
+	}
+
+	printf("%d\n",sum);
+
+	return 0;
+}
+
+```
