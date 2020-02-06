@@ -116,3 +116,111 @@ int main()
  dijkstra算法不能处理带有负权边的情况，这是因为基于贪心的原则
  */
 ```
+
+#### 3.bellman-ford算法初级版,可以处理负权边
+```c++
+#include <iostream>
+using namespace std;
+int main()
+{
+	int dis[10],i,k,n,m,u[10],v[10],w[10];
+	int inf =99999999;
+	cin>>n>>m;
+	for(i=1;i<=m;i++) //使用邻接表存储 
+		cin>>u[i]>>v[i]>>w[i];
+	for(i=1;i<=n;i++)
+		dis[i]=inf;
+	dis[1]=0; //到自己的距离为0
+	
+	//bellman-ford算法核心语句,只需要外层循环n-1次 
+	for(k=1;k<=n-1;k++)
+	{
+		int check=0; 
+		for(i=1;i<=m;i++) //从不经过任何顶点，到经过1个，2个.... 
+		{
+			if(dis[v[i]]>dis[u[i]]+w[i])
+			{
+				dis[v[i]]=dis[u[i]]+w[i];
+				check=1;
+			}
+
+		}
+		if(check==0) break; //如果dis数组不再有变化，则已经更新完毕，不用再进行循环 
+	}
+
+	/*判断是否含有负权回路 
+	int flag=0;
+	for(k=1;k<=n-1;k++)
+		if(dis[v[i]]>dis[u[i]]+w[i]) flag=1;
+	if(flag==1) cout<<"此图含有负权回路";
+	*/
+	
+			
+	for(i=1;i<=n;i++)
+		cout<<dis[i]<<" "; 
+	return 0;
+}
+```
+
+#### 4.bellman-ford算法进阶版,作了一些优化,使用邻接表存储
+```c++
+#include <iostream>
+using namespace std;
+int main()
+{
+	int i,j,k,n,m,u[8],v[8],w[8];
+	int inf =99999999;
+	//first要比n最大值大1，m要比m最大值大1 
+	int first[6],next[8];
+	int dis[6]={0},book[6]={0};//book标记数组
+	int que[101]={0},head=1,tail=1; //定义一个队列并初始化 
+	cin>>n>>m;
+
+	for(i=1;i<=n;i++)
+		dis[i]=inf;
+	dis[1]=0; //到自己的距离为0
+	
+	for(i=1;i<=n;i++)	first[i]=-1;
+	for(i=1;i<=m;i++)
+	{
+		cin>>u[i]>>v[i]>>w[i];
+		//邻接表的关键 
+		next[i]=first[u[i]]; 
+		first[u[i]]=i; 
+	}
+	que[tail]=1; tail++;
+	book[1]=1;//标记1号顶点入队 
+	while(head<tail)//队列不为空时循环
+	{
+		k=first[que[head]]; //当前需要处理的队首顶点
+		while(k!=-1)//扫描当前顶点的边
+		{
+			if(dis[v[k]]>dis[u[k]]+w[k])
+			{
+				dis[v[k]]=dis[u[k]]+w[k];//更新顶点1到v[k]的路程
+				//这的book数组用来判断顶点v[k]是否在队列中
+				//如果不是使用一个数组来标记的话，判断一个顶点是否在队列中每次都需要
+				//从队列的head到tail扫描一遍，很浪费时间。
+				if(book[v[k]]==0)
+				{
+					//入队操作
+					que[tail]=v[k];
+					tail++;
+					book[v[k]]=1; 
+				 } 
+			}
+			k=next[k];
+		 } 
+		 //出队操作 
+		 book[que[head]]=0;
+		 head++; 
+	 } 
+	 for(i=1;i<=n;i++)
+	 	cout<<dis[i]<<" "; 
+	 
+	return 0;
+}
+/*
+用链表来实现邻接表是最好的，不用提前预估大小
+*/
+```
